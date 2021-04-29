@@ -1,0 +1,93 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+<body>
+  <main>
+    <div class=" bg-dark">
+      <div class="container-fluid" style="padding: 2%; ">
+        <form class="" action="/get_feed" method="post">
+          <div class="row">
+            <div class="col-3">
+
+            </div>
+            <div class="col-5">
+              <input class="form-control" type="text" name="title" placeholder="Enter Movie Name">
+            </div>
+            <div class="col-1">
+              <input class="btn btn-light" type="submit" name="Submit" value = "Submit"/>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+	<div class="container-lg" style="margin-top: 2%;">
+		<% if (error) { %>
+		  <div class="alert alert-danger"><%- message %></div>
+		<% } %>
+    <%
+      if (items) {
+        var output = '';
+        output += `
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <img src= `+items.Poster+` width="auto" height="auto">
+            </div>
+            <div class="col-7">
+              <h1 class="title">`+ items.Title + `</h1>
+              <h4 class="title">Cast</h4>
+              <p class="body">`+items.Actors+`</p>
+              <h4 class="title">Genre</h4>
+              <p class="body">`+items.Genre+`</p>
+              <h4 class="title">Plot</h4>
+              <p class="body">`+items.Plot+`</p>
+              <h4 class="title">Release Date</h4>
+              <p class="body">`+items.Released+`</p>
+              <h4 class="title">Ratings</h4>
+              <p class="body">`+items.Ratings[0].Source+` : `+items.Ratings[0].Value+`</p>
+              <p class="body">`+items.Ratings[1].Source+` : `+items.Ratings[1].Value+`</p>
+              <p class="body">`+items.Ratings[2].Source+` : `+items.Ratings[2].Value+`</p>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Write Review</button>
+            </div>
+        </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Review</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="col">
+                  <label class = "form-control" for="movieName">Movie Name:</label> 
+                  
+                  <label for="message-text" class="form-control">Enter Your Review Here:</label>
+              </div>
+
+              <div class="col-7">
+                <form action="/main/add_review" method="post" id="review_form">
+
+                  <input class="form-control" type="text" id="movie_title" name="movie_title" value="`+items.Title+`" readonly>
+                  
+                  <textarea type="text" class="form-control" id="review" name ="review" ></textarea>
+                  
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" value="submit" class="btn btn-primary btn-block">
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div>
+        </div>
+  </div>`};%>
+    <%- output %>
+	</div>
+	</main>
+  
+  <%- include('../partials/footer'); -%>

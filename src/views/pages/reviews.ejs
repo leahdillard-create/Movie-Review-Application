@@ -1,0 +1,51 @@
+<%- include('../partials/header') %>
+<%- include('../partials/menu') %>
+<div class="container text-center">
+	<br>
+
+  <h1 class="display-4">Movie Reviews</h1>
+    <div class="container-fluid" style="padding: 2%; ">
+      <form class="" action="/reviews/filter" method="post">
+        <div class="row">
+          <div class="col-3">
+
+          </div>
+          <div class="col-5">
+            <input class="form-control" type="text" name="movie_title" placeholder="Enter Movie Name">
+          </div>
+          <div class="col-1">
+            <input class="btn btn-primary" type="submit" name="Submit" value = "Submit"/>
+          </div>
+        </div>
+      </form>
+  </div>
+  
+	<table class="table table-bordered" id="review_table">
+		<tr>
+			<th class="align-center" >Movie</th>
+			<th class="align-bottom">Review</th>
+			<th class="align-bottom">Review Date</th>
+		<br>
+		<!-- TODO: Iterate over the Football_table data here
+                    1. Display the information for each row (date, name, home score, visitor score)
+                    2. Determine who the winner is and display it in the final column
+
+                    If you're not sure how the logic should work here, review the code you add to the client-side javascript
+                    that ran onload for Lab 5.  We are doing the same kind of operations we had in Lab 5, but we are instead having
+                    everything handled via server-side scriptes
+        -->
+		<%
+		if (reviews) {
+			var table = '';
+			reviews.forEach(function(item){
+				table += '<tr> <td>' + item.movie_title + '</td> <td>' + item.review + '</td> <td>' + item.review_date + '</td>';
+			}); %>
+		<%- table %>
+		<% } %>
+  </tr>
+  </table>
+
+	<br>
+
+</div>
+<%- include('../partials/footer') %>
